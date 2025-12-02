@@ -18,7 +18,6 @@ pub fn part_one(input: &str) -> Option<i64> {
         if current_sum == 0 {
             res += 1;
         }
-        println!("{:?}", current_sum);
         current_sum
     });
     Some(res)
@@ -28,30 +27,29 @@ pub fn part_two(input: &str) -> Option<i64> {
     let mut res = 0;
     let _ = input.lines().into_iter().fold(50, |acc, line| {
         let (direction, number_str) = line.split_at(1);
-        let parsed_number: i64 = number_str.to_string().parse::<i64>().unwrap();
-        res += parsed_number / 100;
-        println!(
-            "{} / 100 = {} - > res : {} ",
-            parsed_number,
-            parsed_number / 100,
-            res
-        );
-        let parsed_number = parsed_number % 100;
+        let full_parsed_number: i64 = number_str.to_string().parse::<i64>().unwrap();
+        let prev_res = res;
+        res += full_parsed_number / 100;
+        let parsed_number = full_parsed_number % 100;
         let mut current_sum = match direction {
             "L" => acc - parsed_number,
             _ => acc + parsed_number,
         };
+        let mut flipped = false;
         if current_sum > 99 {
             current_sum -= 100;
-            res += 1;
-            println!("Res : {:}", res);
+            flipped = true;
         } else if current_sum < 0 {
             current_sum += 100;
-            res += 1;
-            println!("Res : {:}", res);
+            flipped = true;
         }
-
-        println!("{:?}", current_sum);
+        if acc != 0 && flipped || current_sum == 0 {
+            res += 1;
+        }
+        // println!("Current sum : {:?}", current_sum);
+        // if prev_res != res {
+        //     println!("Res : {:}", res);
+        // }
         current_sum
     });
     Some(res)
