@@ -24,7 +24,6 @@ pub fn part_one(input: &str) -> Option<u64> {
                 let i_str = i.to_string();
                 let (l_nb, r_nb) = i_str.split_at(i_len / 2);
                 if l_nb == r_nb {
-                    println!("{}", i);
                     local_res += i;
                 }
             }
@@ -52,7 +51,6 @@ pub fn part_two(input: &str) -> Option<u64> {
                         l_concat += l_nb;
                     }
                     if l_concat == r_nb {
-                        println!("{}", i);
                         local_res += i;
                         break;
                     }
